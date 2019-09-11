@@ -10,26 +10,32 @@ const app = express();
 
 require("dotenv").config();
 
-//DB config
-// const db = require('./config/keys').mongoURI;
+// //DB config
+// const db = require("./config/keys").mongoURI;
 
-//db connection
+// //db connection
 // const uri = process.env.mongoURI2;
-// mongoose.connect(db, {useNewUrlParser: true, useCreateIndex: true});
+// mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true });
 // const connection = mongoose.connection;
-// connection.once('open', () => {
-// 	console.log('MongoDB database connection established successfully');
+// connection.once("open", () => {
+//   console.log("MongoDB database connection established successfully");
 // });
+
+const db = require("./config/keys").mongoURI;
+mongoose
+  .connect(db, { useNewUrlParser: true, useCreateIndex: true })
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //db connection 2
-const db = process.env.mongoURI;
-mongoose
-  .connect(db, { useNewUrlParser: true, useCreateIndex: true })
-  .then(() => console.log("mongoDB connected"))
-  .catch(err => console.log(err));
+// const db = process.env.mongoURI;
+// mongoose
+//   .connect(db, { useNewUrlParser: true, useCreateIndex: true })
+//   .then(() => console.log("mongoDB connected"))
+//   .catch(err => console.log(err));
 
 //passport middleware
 app.use(passport.initialize());
